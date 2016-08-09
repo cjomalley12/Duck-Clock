@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Duck Clock</string>
+    <string name="alarm_set">Alarm set</string>
+    <string name="alarm_not_set">Alarm not set</string>
+    <string name="spin_faster">Spin Faster</string>
+    <string name="spin_slower">Spin Slower</string>
+    <string name="current_time_label">Current time:</string>
+    <string name="time_save">Save</string>
+    <string name="add_alarm">Add an alarm</string>
+    <string name="cancel_alarm">Cancel alarm</string>
+    <string name="default_time">00:00 PM</string>
+</resources>
