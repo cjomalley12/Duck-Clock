@@ -13,14 +13,17 @@ import android.widget.Toast;
 
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by internmacbook on 8/4/16.
  */
 public class AlarmFragment extends Fragment {
     private static final String TAG = "AlarmFragment";
 
-    private TimePicker mTimePicker;
-    private Button mSaveButton;
+    @BindView(R.id.timePicker) TimePicker mTimePicker;
+    @BindView(R.id.alarm_fragment_save_button) Button mSaveButton;
 
     private int hour;
     private int minute;
@@ -34,9 +37,7 @@ public class AlarmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.alarm_fragment, container, false);
-
-        mTimePicker = (TimePicker) view.findViewById(R.id.timePicker);
-        mSaveButton = (Button) view.findViewById(R.id.alarm_fragment_save_button);
+        ButterKnife.bind(getActivity());
 
         passedInTime = getActivity().getIntent().getStringExtra("passedInTime");
         rotateTime = getActivity().getIntent().getIntExtra("rotateTime", 5000);

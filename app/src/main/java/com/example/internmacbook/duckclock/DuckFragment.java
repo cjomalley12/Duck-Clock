@@ -17,29 +17,30 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by internmacbook on 8/3/16.
  */
 public class DuckFragment extends Fragment {
     private static final String TAG = "DuckFragment";
     private static final int REQUEST_CODE = 0;
-    private View mDuck;
-    private Button mFaster;
-    private Button mSlower;
-    private Button mNewAlarm;
-    private TextView mCurrentTime;
-    private TextView mAlarmTime;
-    private TextView mAlarmStatus;
-    private ProgressBar mProgressBar;
+
+    @BindView(R.id.duck) View mDuck;
+    @BindView(R.id.faster_button) Button mFaster;
+    @BindView(R.id.slower_button) Button mSlower;
+    @BindView(R.id.add_alarm_button) Button mNewAlarm;
+    @BindView(R.id.current_time) TextView mCurrentTime;
+    @BindView(R.id.alarm_time_text_view) TextView mAlarmTime;
+    @BindView(R.id.alarm_status) TextView mAlarmStatus;
+    @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
     private BeatBox mBeatBox;
 
     private int rotateTime;
     private int runCount;
     private String alarmTime;
-    private boolean isAlarmSet;
-
-
 
     public static DuckFragment newInstance() {
         return new DuckFragment();
@@ -48,17 +49,8 @@ public class DuckFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_duck_screen, container, false);
-
+        ButterKnife.bind(getActivity());
         setRetainInstance(true);
-
-        mDuck = view.findViewById(R.id.duck);
-        mFaster = (Button) view.findViewById(R.id.faster_button);
-        mSlower = (Button) view.findViewById(R.id.slower_button);
-        mNewAlarm = (Button) view.findViewById(R.id.add_alarm_button);
-        mCurrentTime = (TextView) view.findViewById(R.id.current_time);
-        mAlarmTime = (TextView) view.findViewById(R.id.alarm_time_text_view);
-        mAlarmStatus = (TextView) view.findViewById(R.id.alarm_status);
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar) ;
 
         mBeatBox = new BeatBox(getActivity());
 
@@ -66,7 +58,6 @@ public class DuckFragment extends Fragment {
         runCount = 0;
         rotateTime = getActivity().getIntent().getIntExtra("rotateTime", 3000); //5 secs
         updateProgressBar();
-
 
         alarmTime = getActivity().getIntent().getStringExtra("time");
         mCurrentTime.setText(getActivity().getIntent().getStringExtra("passedInTime"));
@@ -102,7 +93,6 @@ public class DuckFragment extends Fragment {
             }
         };
         t.start();
-
 
         mFaster.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -168,7 +158,6 @@ public class DuckFragment extends Fragment {
         else{
             mProgressBar.setProgress(mProgressBar.getMax() - rotateTime);
         }
-
     }
 
     private void updateTimeTextView() {
@@ -195,15 +184,6 @@ public class DuckFragment extends Fragment {
         }
     }
 
-//    private void startAnimation(boolean isNight) {
-//        if(isNight){
-//            animateSunrise();
-//        }
-//        else{
-//            animateSunset();
-//        }
-//    }
-
     private void animateDuck(int rotateTime){
         RotateAnimation rotate = new RotateAnimation(0, 360, 256, 256);
         rotate.setDuration(rotateTime);
@@ -211,8 +191,6 @@ public class DuckFragment extends Fragment {
 
         mDuck.startAnimation(rotate);
     }
-
-
 
     @Override
     public void onDestroy(){
