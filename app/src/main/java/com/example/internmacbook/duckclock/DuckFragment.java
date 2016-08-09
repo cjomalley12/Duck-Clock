@@ -49,6 +49,8 @@ public class DuckFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_duck_screen, container, false);
 
+        setRetainInstance(true);
+
         mDuck = view.findViewById(R.id.duck);
         mFaster = (Button) view.findViewById(R.id.faster_button);
         mSlower = (Button) view.findViewById(R.id.slower_button);
@@ -95,6 +97,7 @@ public class DuckFragment extends Fragment {
                         });
                     }
                 } catch (InterruptedException e) {
+
                 }
             }
         };
@@ -152,17 +155,20 @@ public class DuckFragment extends Fragment {
                 }
             }
         });
-
         return view;
     }
 
     private void updateProgressBar() {
         if(mProgressBar.getMax()-rotateTime <= 100){
+            mProgressBar.setProgress(0);
+        }
+        else if(mProgressBar.getMax() - rotateTime >= 5900){
             mProgressBar.setProgress(mProgressBar.getMax());
         }
         else{
             mProgressBar.setProgress(mProgressBar.getMax() - rotateTime);
         }
+
     }
 
     private void updateTimeTextView() {
